@@ -2,113 +2,109 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Escritora del Tiempo - Yby Huamán</title>
+  <title>La Escritora del Tiempo</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
-
     html, body {
       margin: 0;
       padding: 0;
+      overflow: hidden;
       height: 100%;
-      font-family: 'Cinzel', serif;
-      color: #fff;
-      overflow-x: hidden;
-      text-align: center;
-      background: url('https://cdn.pixabay.com/photo/2018/01/14/23/12/space-3089943_1280.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    /* Capa de estrellas animadas */
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: transparent url('https://i.imgur.com/9bH8yWj.png') repeat;
-      z-index: -1;
-      animation: moveStars 300s linear infinite;
-      opacity: 0.6;
-    }
-
-    body::after {
-      animation-duration: 600s;
-      opacity: 0.3;
-    }
-
-    @keyframes moveStars {
-      from {background-position: 0 0;}
-      to {background-position: -7000px 7000px;}
-    }
-
-    header {
-      padding: 80px 20px 20px 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    h1 {
-      font-size: 3em;
-      color: #f5f3ff;
-      text-shadow: 0 0 15px #9c6bff, 0 0 25px #00d4ff;
-    }
-
-    h2 {
-      font-weight: 400;
-      color: #aee2ff;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.2em;
-      color: #d0d8ff;
-    }
-
-    .botones {
-      margin-top: 50px;
-    }
-
-    a.boton {
-      display: inline-block;
-      margin: 15px;
-      padding: 15px 35px;
-      background: linear-gradient(90deg, #6f00ff, #00d4ff);
+      font-family: Arial, sans-serif;
       color: white;
-      text-decoration: none;
-      border-radius: 40px;
-      font-size: 1.2em;
-      box-shadow: 0 0 15px #00d4ff;
-      transition: 0.3s;
+      background-color: black;
     }
-
-    a.boton:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 25px #9c6bff;
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
-
-    footer {
-      margin-top: 70px;
-      font-size: 0.9em;
-      color: #b0c4de;
-      padding-bottom: 40px;
-      background: rgba(0, 0, 0, 0.5);
+    .frases {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 2em;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌌 La Escritora del Tiempo</h1>
-    <h2>Por Yby Huamán</h2>
-    <p>“Mis palabras viajan entre agujeros negros y galaxias que el alma recuerda.”</p>
-  </header>
-
-  <div class="botones">
-    <a href="#" class="boton">☕ Invitame un cafecito</a>
-    <a href="#" class="boton">📖 Comprar mis cuentos</a>
+  <canvas id="canvas"></canvas>
+  <div class="frases">
+    <p>Tu frase 1 aquí</p>
+    <p>Tu frase 2 aquí</p>
+    <p>Tu frase 3 aquí</p>
   </div>
 
-  <footer>
-    <p>© 2025 Yby Huamán | Todos los derechos reservados</p>
-  </footer>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const stars = [];
+    const blackHoles = [];
+
+    // Crear estrellas
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    // Crear agujeros negros
+    for (let i = 0; i < 3; i++) {
+      blackHoles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 30 + 20,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Dibujar estrellas
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        star.y += star.speed;
+        if (star.y > height) star.y = 0;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Dibujar agujeros negros
+      ctx.fillStyle = 'black';
+      blackHoles.forEach(bh => {
+        bh.x += bh.speedX;
+        bh.y += bh.speedY;
+
+        if (bh.x < 0 || bh.x > width) bh.speedX *= -1;
+        if (bh.y < 0 || bh.y > height) bh.speedY *= -1;
+
+        ctx.beginPath();
+        ctx.arc(bh.x, bh.y, bh.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
