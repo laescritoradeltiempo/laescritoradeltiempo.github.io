@@ -7,12 +7,14 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      width: 100%;
       height: 100%;
-      font-family: Arial, sans-serif;
-      color: white;
+      overflow: hidden;
       background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
     }
+
     #canvas {
       position: fixed;
       top: 0;
@@ -21,6 +23,7 @@
       height: 100%;
       z-index: -1;
     }
+
     .frases {
       position: relative;
       z-index: 1;
@@ -32,6 +35,7 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
+
   <div class="frases">
     <p>Tu frase 1 aquí</p>
     <p>Tu frase 2 aquí</p>
@@ -45,36 +49,36 @@
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
-    const stars = [];
-    const blackHoles = [];
+    const estrellas = [];
+    const agujerosNegros = [];
 
     // Crear estrellas
-    for (let i = 0; i < 200; i++) {
-      stars.push({
+    for (let i = 0; i < 300; i++) {
+      estrellas.push({
         x: Math.random() * width,
         y: Math.random() * height,
         radius: Math.random() * 2,
-        speed: Math.random() * 0.5 + 0.2
+        speed: Math.random() * 0.5 + 0.1
       });
     }
 
     // Crear agujeros negros
-    for (let i = 0; i < 3; i++) {
-      blackHoles.push({
+    for (let i = 0; i < 5; i++) {
+      agujerosNegros.push({
         x: Math.random() * width,
         y: Math.random() * height,
         radius: Math.random() * 30 + 20,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5
+        speedX: (Math.random() - 0.5) * 0.2,
+        speedY: (Math.random() - 0.5) * 0.2
       });
     }
 
-    function animate() {
+    function dibujar() {
       ctx.clearRect(0, 0, width, height);
 
       // Dibujar estrellas
       ctx.fillStyle = 'white';
-      stars.forEach(star => {
+      estrellas.forEach(star => {
         star.y += star.speed;
         if (star.y > height) star.y = 0;
         ctx.beginPath();
@@ -84,7 +88,7 @@
 
       // Dibujar agujeros negros
       ctx.fillStyle = 'black';
-      blackHoles.forEach(bh => {
+      agujerosNegros.forEach(bh => {
         bh.x += bh.speedX;
         bh.y += bh.speedY;
 
@@ -96,10 +100,10 @@
         ctx.fill();
       });
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(dibujar);
     }
 
-    animate();
+    dibujar();
 
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
@@ -108,3 +112,4 @@
   </script>
 </body>
 </html>
+
