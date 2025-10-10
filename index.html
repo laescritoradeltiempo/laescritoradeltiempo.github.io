@@ -5,44 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Escritora del Tiempo - Yby Huamán</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+
+    html, body {
       margin: 0;
-      font-family: 'Georgia', serif;
+      padding: 0;
+      height: 100%;
+      font-family: 'Cinzel', serif;
       color: #fff;
-      background: linear-gradient(180deg, #020024 0%, #090979 35%, #00d4ff 100%);
-      background-attachment: fixed;
+      overflow-x: hidden;
       text-align: center;
+      background: radial-gradient(circle at center, #0b0033, #000010 80%);
+      background-size: cover;
+      animation: estrellas 30s linear infinite;
     }
+
+    /* Fondo animado de estrellas */
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: transparent url('https://i.imgur.com/9bH8yWj.png') repeat;
+      z-index: -1;
+      animation: moveStars 200s linear infinite;
+      opacity: 0.7;
+    }
+    body::after {
+      animation-duration: 400s;
+      opacity: 0.4;
+    }
+
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: -5000px 5000px;}
+    }
+
     header {
-      padding: 40px;
+      padding: 80px 20px 20px 20px;
     }
+
     h1 {
-      font-size: 2.5em;
+      font-size: 3em;
+      color: #f5f3ff;
+      text-shadow: 0 0 10px #9c6bff, 0 0 20px #00d4ff;
+    }
+
+    h2 {
+      font-weight: 400;
+      color: #aee2ff;
       margin-bottom: 10px;
     }
-    h2 {
-      font-weight: normal;
-      color: #aee2ff;
+
+    p {
+      font-size: 1.2em;
+      color: #d0d8ff;
     }
+
     .botones {
-      margin-top: 40px;
+      margin-top: 50px;
     }
+
     a.boton {
       display: inline-block;
       margin: 15px;
-      padding: 15px 30px;
-      background-color: #00aaff;
+      padding: 15px 35px;
+      background: linear-gradient(90deg, #6f00ff, #00d4ff);
       color: white;
       text-decoration: none;
-      border-radius: 30px;
-      font-size: 1.1em;
+      border-radius: 40px;
+      font-size: 1.2em;
+      box-shadow: 0 0 15px #00d4ff;
       transition: 0.3s;
     }
+
     a.boton:hover {
-      background-color: #0077cc;
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #9c6bff;
     }
+
     footer {
-      margin-top: 60px;
+      margin-top: 70px;
       font-size: 0.9em;
       color: #b0c4de;
       padding-bottom: 40px;
@@ -51,9 +94,9 @@
 </head>
 <body>
   <header>
-    <h1>🌙 La Escritora del Tiempo</h1>
+    <h1>🌌 La Escritora del Tiempo</h1>
     <h2>Por Yby Huamán</h2>
-    <p>“Las palabras son las monedas con las que compro la eternidad.”</p>
+    <p>“Las palabras son galaxias que giran en mi corazón, buscando eternidad.”</p>
   </header>
 
   <div class="botones">
@@ -66,3 +109,4 @@
   </footer>
 </body>
 </html>
+
