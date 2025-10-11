@@ -5,123 +5,159 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Escritora del Tiempo</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
+      margin: 0;
       overflow: hidden;
-      background: radial-gradient(ellipse at center, #000000, #070a1a, #0d1028);
-      font-family: 'Georgia', serif;
-      color: white;
       height: 100vh;
+      font-family: 'Georgia', serif;
+      color: #cce7ff;
+      text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative;
-      text-align: center;
+      background: black;
     }
 
     h1 {
-      font-size: 2.8em;
-      color: #ffd700;
-      text-shadow: 0 0 20px #ffec8b, 0 0 40px #ffcc33, 0 0 60px #b8860b;
-      margin-bottom: 0.3em;
-      z-index: 10;
+      font-size: 3.5em;
+      color: #80b3ff;
+      text-shadow: 0 0 20px #6699ff, 0 0 40px #3366ff;
     }
 
     h2 {
+      font-size: 1.8em;
+      color: #cce7ff;
+      margin-top: 0.5em;
+    }
+
+    p {
+      max-width: 650px;
       font-size: 1.3em;
-      color: #e0e0e0;
-      margin-bottom: 1.5em;
-      font-weight: normal;
-      z-index: 10;
+      color: #a3d2ff;
+      margin: 20px;
+      text-shadow: 0 0 10px #3366ff;
+      line-height: 1.5em;
     }
 
     .buttons {
+      margin-top: 30px;
       display: flex;
-      gap: 1em;
-      z-index: 10;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .btn {
-      text-decoration: none;
-      padding: 0.8em 1.5em;
-      border-radius: 30px;
-      background: linear-gradient(45deg, #ffd700, #ffcc33, #fff8dc);
-      color: #000;
-      font-weight: bold;
-      box-shadow: 0 0 20px #ffd700a0;
+    button {
+      background-color: rgba(0, 0, 50, 0.8);
+      border: 1px solid #88c0ff;
+      color: #cce7ff;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1em;
       transition: all 0.3s ease;
+      text-shadow: 0 0 8px #77aaff;
     }
 
-    .btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #fff8dc;
+    button:hover {
+      background-color: #3380ff;
+      color: white;
+      box-shadow: 0 0 20px #66aaff;
     }
 
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff8dc;
-      border-radius: 50%;
-      animation: twinkle 6s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); }
-    }
-
-    .blackhole {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
-      animation: rotate 30s linear infinite;
-      opacity: 0.5;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
+  <canvas id="space"></canvas>
 
   <h1>La Escritora del Tiempo</h1>
   <h2>por Yby H.</h2>
+  <p>“Escribo para que la oscuridad también tenga estrellas.”</p>
 
   <div class="buttons">
-    <a href="#" class="btn">☕ Podés regalarme un cafecito</a>
-    <a href="#" class="btn">📖 Podés comprar mis cuentos</a>
+    <button onclick="window.open('https://cafecito.app/', '_blank')">☕ Podés regalarme un cafecito</button>
+    <button onclick="window.open('https://www.amazon.com/author/laescritoradeltiempo', '_blank')">📖 Podés comprar mis cuentos</button>
   </div>
 
   <script>
-    // Estrellas
-    const starCount = 80;
-    for(let i = 0; i < starCount; i++){
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = Math.random() * window.innerHeight + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.animationDuration = (Math.random() * 4 + 4) + 's';
-      document.body.appendChild(star);
+    const canvas = document.getElementById("space");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let stars = [];
+    const numStars = 200;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Star {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2;
+        this.vx = (Math.random() - 0.5) * 0.2; // velocidad horizontal
+        this.vy = (Math.random() - 0.5) * 0.2; // velocidad vertical
+        this.color = Math.random() > 0.95 ? "#ffd880" : "#a3d2ff"; // dorado o azul
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        // rebote al llegar al borde
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
     }
 
-    // Agujeros negros
-    const blackholeCount = 2;
-    for(let i = 0; i < blackholeCount; i++){
-      const bh = document.createElement('div');
-      bh.classList.add('blackhole');
-      const size = Math.random() * 100 + 100;
-      bh.style.width = size + 'px';
-      bh.style.height = size + 'px';
-      bh.style.top = Math.random() * (window.innerHeight - size) + 'px';
-      bh.style.left = Math.random() * (window.innerWidth - size) + 'px';
-      document.body.appendChild(bh);
+    for (let i = 0; i < numStars; i++) {
+      stars.push(new Star());
     }
+
+    function drawBlackHole(x, y, radius, t) {
+      const gradient = ctx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
+      gradient.addColorStop(0, "rgba(0,0,0,1)");
+      gradient.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(x + Math.sin(t / 3000) * 50, y + Math.cos(t / 4000) * 30, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function animate(time) {
+      ctx.fillStyle = "rgba(0,0,20,0.3)";
+      ctx.fillRect(0, 0, w, h);
+
+      for (const star of stars) {
+        star.update();
+        star.draw();
+      }
+
+      drawBlackHole(w * 0.3, h * 0.4, 80, time);
+      drawBlackHole(w * 0.7, h * 0.6, 120, time);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate(0);
   </script>
-
 </body>
 </html>
+
