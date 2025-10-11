@@ -2,106 +2,181 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>La Escritora del Tiempo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La escritora del Tiempo - Yby H.</title>
   <style>
-    html, body {
+    body, html {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
-      background-color: black;
+      font-family: 'Arial', sans-serif;
       color: white;
-      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      background: black;
     }
-    #canvas {
+
+    canvas {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
       z-index: -1;
     }
-    .contenido {
-      position: relative;
+
+    h1 {
+      font-size: 3em;
+      margin: 0.2em;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff8c00;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      font-weight: normal;
+      margin-bottom: 1.5em;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
       z-index: 1;
-      text-align: center;
-      margin-top: 50px;
+    }
+
+    button {
+      background-color: #ff8c00;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ffa500;
+    }
+
+    .buy-button {
+      background-color: #4CAF50;
+    }
+
+    .buy-button:hover {
+      background-color: #66bb6a;
+    }
+
+    .donation-button {
+      background-color: #f72585;
+    }
+
+    .donation-button:hover {
+      background-color: #ff5fa2;
+    }
+
+    .cosmic-quote {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      font-style: italic;
+      text-shadow: 0 0 8px #ffb6c1;
     }
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
-  <div class="contenido">
-    <h1>Bienvenida a mi universo</h1>
-    <p>Explora las estrellas y los misterios del cosmos.</p>
+  <canvas id="space"></canvas>
+
+  <h1>La escritora del Tiempo</h1>
+  <h2>por Yby H.</h2>
+  <div class="cosmic-quote">"Cada palabra es una estrella que ilumina el infinito."</div>
+
+  <div class="button-container">
+    <a href="https://cafecito.app/tuusuario" target="_blank">
+      <button class="donation-button">¡Invítame un café!</button>
+    </a>
+    <a href="https://tu-enlace-de-libros.com" target="_blank">
+      <button class="buy-button">Compra mis libros</button>
+    </a>
   </div>
 
   <script>
-    const canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('space');
     const ctx = canvas.getContext('2d');
+    let stars = [];
+    let holes = [];
 
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    const estrellas = [];
-    const agujerosNegros = [];
-
-    // Crear estrellas
-    for (let i = 0; i < 200; i++) {
-      estrellas.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radio: Math.random() * 2,
-        velocidad: Math.random() * 0.5 + 0.2
-      });
-    }
-
-    // Crear agujeros negros
-    for (let i = 0; i < 3; i++) {
-      agujerosNegros.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radio: Math.random() * 30 + 20,
-        velocidadX: (Math.random() - 0.5) * 0.5,
-        velocidadY: (Math.random() - 0.5) * 0.5
-      });
-    }
-
-    function animar() {
-      ctx.clearRect(0, 0, width, height);
-
-      // Dibujar estrellas
-      ctx.fillStyle = 'white';
-      estrellas.forEach(estrella => {
-        estrella.y += estrella.velocidad;
-        if (estrella.y > height) estrella.y = 0;
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.speed = Math.random() * 0.5;
+      }
+      draw() {
         ctx.beginPath();
-        ctx.arc(estrella.x, estrella.y, estrella.radio, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
         ctx.fill();
-      });
-
-      // Dibujar agujeros negros
-      ctx.fillStyle = 'black';
-      agujerosNegros.forEach(bh => {
-        bh.x += bh.velocidadX;
-        bh.y += bh.velocidadY;
-
-        if (bh.x < 0 || bh.x > width) bh.velocidadX *= -1;
-        if (bh.y < 0 || bh.y > height) bh.velocidadY *= -1;
-
-        ctx.beginPath();
-        ctx.arc(bh.x, bh.y, bh.radio, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animar);
+      }
+      update() {
+        this.y -= this.speed;
+        if (this.y < 0) this.y = canvas.height;
+        this.draw();
+      }
     }
 
-    animar();
+    class BlackHole {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 40 + 30;
+        this.speed = Math.random() * 0.2;
+      }
+      draw() {
+        let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+        gradient.addColorStop(0.7, 'rgba(0,0,0,0.5)');
+        gradient.addColorStop(1, 'black');
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      }
+      update() {
+        this.x += Math.sin(Date.now()/1000) * 0.2;
+        this.draw();
+      }
+    }
+
+    function init() {
+      stars = [];
+      holes = [];
+      for (let i = 0; i < 300; i++) stars.push(new Star());
+      for (let i = 0; i < 5; i++) holes.push(new BlackHole());
+    }
+
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      stars.forEach(star => star.update());
+      holes.forEach(hole => hole.update());
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
 
     window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
     });
   </script>
 </body>
