@@ -3,181 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La escritora del Tiempo - Yby H.</title>
+  <title>La Escritora del Tiempo</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+    /* Reset y estilos base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
       overflow: hidden;
+      background: radial-gradient(ellipse at center, #000000, #050d1a, #0a0f23);
       font-family: 'Arial', sans-serif;
       color: white;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      text-align: center;
-      background: black;
+      position: relative;
     }
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-
+    /* Frase cósmica */
     h1 {
+      position: absolute;
+      z-index: 10;
       font-size: 3em;
-      margin: 0.2em;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff8c00;
+      text-align: center;
+      color: #f0f8ff;
+      text-shadow: 0 0 20px #fff, 0 0 40px #7fffd4, 0 0 60px #00ffff;
     }
 
-    h2 {
-      font-size: 1.5em;
-      font-weight: normal;
-      margin-bottom: 1.5em;
-      text-shadow: 0 0 5px #fff;
+    /* Estrellas flotantes */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 5s infinite;
     }
 
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-      z-index: 1;
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
 
-    button {
-      background-color: #ff8c00;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
+    /* Agujeros negros */
+    .blackhole {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+      animation: rotate 20s linear infinite;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      background-color: #ffa500;
-    }
-
-    .buy-button {
-      background-color: #4CAF50;
-    }
-
-    .buy-button:hover {
-      background-color: #66bb6a;
-    }
-
-    .donation-button {
-      background-color: #f72585;
-    }
-
-    .donation-button:hover {
-      background-color: #ff5fa2;
-    }
-
-    .cosmic-quote {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-      font-style: italic;
-      text-shadow: 0 0 8px #ffb6c1;
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <canvas id="space"></canvas>
 
-  <h1>La escritora del Tiempo</h1>
-  <h2>por Yby H.</h2>
-  <div class="cosmic-quote">"Cada palabra es una estrella que ilumina el infinito."</div>
-
-  <div class="button-container">
-    <a href="https://cafecito.app/tuusuario" target="_blank">
-      <button class="donation-button">¡Invítame un café!</button>
-    </a>
-    <a href="https://tu-enlace-de-libros.com" target="_blank">
-      <button class="buy-button">Compra mis libros</button>
-    </a>
-  </div>
+  <h1>“El tiempo y el universo danzan en mi escritura”</h1>
 
   <script>
-    const canvas = document.getElementById('space');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    let holes = [];
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Star {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 1.5 + 0.5;
-        this.speed = Math.random() * 0.5;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "white";
-        ctx.fill();
-      }
-      update() {
-        this.y -= this.speed;
-        if (this.y < 0) this.y = canvas.height;
-        this.draw();
-      }
+    // Crear estrellas aleatorias
+    const starCount = 150;
+    for(let i = 0; i < starCount; i++){
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.width = Math.random() * 3 + 1 + 'px';
+      star.style.height = star.style.width;
+      star.style.animationDuration = (Math.random() * 5 + 3) + 's';
+      document.body.appendChild(star);
     }
 
-    class BlackHole {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 40 + 30;
-        this.speed = Math.random() * 0.2;
-      }
-      draw() {
-        let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-        gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(0.7, 'rgba(0,0,0,0.5)');
-        gradient.addColorStop(1, 'black');
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      }
-      update() {
-        this.x += Math.sin(Date.now()/1000) * 0.2;
-        this.draw();
-      }
+    // Crear agujeros negros aleatorios
+    const blackholeCount = 3;
+    for(let i = 0; i < blackholeCount; i++){
+      const bh = document.createElement('div');
+      bh.classList.add('blackhole');
+      const size = Math.random() * 100 + 100;
+      bh.style.width = size + 'px';
+      bh.style.height = size + 'px';
+      bh.style.top = Math.random() * (window.innerHeight - size) + 'px';
+      bh.style.left = Math.random() * (window.innerWidth - size) + 'px';
+      document.body.appendChild(bh);
     }
-
-    function init() {
-      stars = [];
-      holes = [];
-      for (let i = 0; i < 300; i++) stars.push(new Star());
-      for (let i = 0; i < 5; i++) holes.push(new BlackHole());
-    }
-
-    function animate() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      stars.forEach(star => star.update());
-      holes.forEach(hole => hole.update());
-      requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
-    });
   </script>
 </body>
 </html>
