@@ -1,93 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Escritora del Tiempo</title>
-  <style>
-    /* Reset y estilos base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      overflow: hidden;
-      background: radial-gradient(ellipse at center, #000000, #050d1a, #0a0f23);
-      font-family: 'Arial', sans-serif;
-      color: white;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+<script>
+  const starCount = 60; // antes 150
+  for(let i = 0; i < starCount; i++){
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * window.innerHeight + 'px';
+    star.style.left = Math.random() * window.innerWidth + 'px';
+    star.style.width = Math.random() * 2 + 1 + 'px';
+    star.style.height = star.style.width;
+    star.style.animationDuration = (Math.random() * 4 + 4) + 's';
+    document.body.appendChild(star);
+  }
 
-    /* Frase cósmica */
-    h1 {
-      position: absolute;
-      z-index: 10;
-      font-size: 3em;
-      text-align: center;
-      color: #f0f8ff;
-      text-shadow: 0 0 20px #fff, 0 0 40px #7fffd4, 0 0 60px #00ffff;
-    }
+  const blackholeCount = 2; // antes 3
+  for(let i = 0; i < blackholeCount; i++){
+    const bh = document.createElement('div');
+    bh.classList.add('blackhole');
+    const size = Math.random() * 80 + 80; // más chico
+    bh.style.width = size + 'px';
+    bh.style.height = size + 'px';
+    bh.style.top = Math.random() * (window.innerHeight - size) + 'px';
+    bh.style.left = Math.random() * (window.innerWidth - size) + 'px';
+    document.body.appendChild(bh);
+  }
+</script>
 
-    /* Estrellas flotantes */
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 5s infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); }
-    }
-
-    /* Agujeros negros */
-    .blackhole {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
-      animation: rotate 20s linear infinite;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body>
-
-  <h1>“El tiempo y el universo danzan en mi escritura”</h1>
-
-  <script>
-    // Crear estrellas aleatorias
-    const starCount = 150;
-    for(let i = 0; i < starCount; i++){
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = Math.random() * window.innerHeight + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.width = Math.random() * 3 + 1 + 'px';
-      star.style.height = star.style.width;
-      star.style.animationDuration = (Math.random() * 5 + 3) + 's';
-      document.body.appendChild(star);
-    }
-
-    // Crear agujeros negros aleatorios
-    const blackholeCount = 3;
-    for(let i = 0; i < blackholeCount; i++){
-      const bh = document.createElement('div');
-      bh.classList.add('blackhole');
-      const size = Math.random() * 100 + 100;
-      bh.style.width = size + 'px';
-      bh.style.height = size + 'px';
-      bh.style.top = Math.random() * (window.innerHeight - size) + 'px';
-      bh.style.left = Math.random() * (window.innerWidth - size) + 'px';
-      document.body.appendChild(bh);
-    }
-  </script>
-</body>
-</html>
