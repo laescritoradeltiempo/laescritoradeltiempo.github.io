@@ -66,9 +66,11 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 15px;
+      flex-direction: column;
+      align-items: center;
     }
 
-    button {
+    button, .info {
       background-color: rgba(0, 0, 50, 0.8);
       border: 1px solid #88c0ff;
       color: #cce7ff;
@@ -78,12 +80,19 @@
       font-size: 1.1em;
       transition: all 0.3s ease;
       text-shadow: 0 0 8px #77aaff;
+      text-decoration: none;
+      display: inline-block;
     }
 
     button:hover {
       background-color: #3380ff;
       color: white;
       box-shadow: 0 0 20px #66aaff;
+    }
+
+    .info {
+      cursor: default;
+      text-align: center;
     }
 
     canvas {
@@ -119,7 +128,9 @@
       <p>“I write so that darkness, too, may have stars.”</p>
 
       <div class="buttons">
-        <button onclick="window.open('https://cafecito.app/', '_blank')">☕ Buy me a coffee</button>
+        <button onclick="alert('☕ Support info:\n\n$Lemontag: laescritoradeltiempo\nMetamask (BSC): 0xdC6dbA2a252DB42C90728f7812711FDE2a53bB91\nPayPal: letrasycafe.yby@gmail.com')">
+          ☕ Invítame un cafecito
+        </button>
         <button onclick="window.open('https://www.amazon.com/author/laescritoradeltiempo', '_blank')">📖 Buy my stories</button>
       </div>
     </div>
