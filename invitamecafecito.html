@@ -63,8 +63,14 @@
     p {
       margin: 0;
       font-size: 1em;
-      color: #ffddaa;
       word-break: break-all;
+    }
+
+    /* Verde brillante para Lemontag */
+    .lemontag {
+      color: #39ff14; /* verde brillante */
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #00ff00;
+      font-weight: bold;
     }
 
     canvas {
@@ -81,13 +87,10 @@
 
   <div class="container">
     <div class="card">
-      <p><b>Lemontag:</b> $laescritoradeltiempo</p>
+      <p class="lemontag">Lemontag: $laescritoradeltiempo</p>
     </div>
 
     <div class="card">
-      <!-- Metamask con logo PNG confiable -->
-      <img src="https://cryptologos.cc/logos/metamask-metamask-logo.png?v=025" 
-           alt="Metamask">
       <p><b>Metamask (BSC):</b><br>0xdC6dbA2a252DB42C90728f7812711FDE2a53bB91</p>
     </div>
 
