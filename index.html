@@ -7,102 +7,15 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden;
-      height: 100vh;
       font-family: 'Georgia', serif;
       color: #cce7ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: black;
-    }
-
-    .container {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      text-align: center;
-      z-index: 2;
-      position: relative;
-    }
-
-    .portrait {
-      width: 280px;
-      height: 380px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #6699ff;
-      object-fit: cover;
-    }
-
-    .text-content {
-      max-width: 600px;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: #80b3ff;
-      text-shadow: 0 0 20px #6699ff, 0 0 40px #3366ff;
-    }
-
-    h2 {
-      font-size: 1.5em;
-      color: #cce7ff;
-      margin-top: 0.5em;
-    }
-
-    h3 {
-      font-size: 1.3em;
-      color: #cce7ff;
-      margin-top: 20px;
-      text-shadow: 0 0 10px #3366ff;
-    }
-
-    p {
-      font-size: 1.2em;
-      color: #a3d2ff;
-      margin: 20px 0;
-      text-shadow: 0 0 10px #3366ff;
-      line-height: 1.6em;
-    }
-
-    .buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
       flex-direction: column;
       align-items: center;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(0, 0, 50, 0.8);
-      border: 1px solid #88c0ff;
-      color: #cce7ff;
-      padding: 12px 25px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1.1em;
-      text-decoration: none;
-      text-shadow: 0 0 8px #77aaff;
-      transition: all 0.3s ease;
-      gap: 8px;
-    }
-
-    .btn img.icon {
-      width: 24px;
-      height: 24px;
-    }
-
-    .btn:hover {
-      background-color: #3380ff;
-      color: white;
-      box-shadow: 0 0 20px #66aaff;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
     }
 
     canvas {
@@ -112,17 +25,120 @@
       z-index: -1;
     }
 
+    h1 {
+      font-size: 3em;
+      color: #80b3ff;
+      text-shadow: 0 0 20px #6699ff, 0 0 40px #3366ff;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .portrait {
+      width: 280px;
+      height: 380px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #6699ff;
+      object-fit: cover;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #a3d2ff;
+      margin: 20px 0 30px 0;
+      text-shadow: 0 0 10px #3366ff;
+      line-height: 1.6em;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    /* Botón de cafecito abajo a la derecha */
+    .coffee-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      background-color: rgba(0,0,50,0.8);
+      border: 1px solid #88c0ff;
+      color: #cce7ff;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 1.1em;
+      text-shadow: 0 0 8px #77aaff;
+      transition: all 0.3s ease;
+      gap: 8px;
+    }
+
+    .coffee-btn:hover {
+      background-color: #3380ff;
+      color: white;
+      box-shadow: 0 0 20px #66aaff;
+    }
+
+    /* Sección comprar historias */
+    .buy-section {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+
+    .buy-section h3 {
+      font-size: 1.3em;
+      color: #cce7ff;
+      text-shadow: 0 0 10px #3366ff;
+      margin-bottom: 10px;
+    }
+
+    .buy-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .buy-buttons a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(0,0,50,0.8);
+      border: 1px solid #88c0ff;
+      color: #cce7ff;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 1em;
+      text-shadow: 0 0 8px #77aaff;
+      transition: all 0.3s ease;
+    }
+
+    .buy-buttons a:hover {
+      background-color: #3380ff;
+      color: white;
+      box-shadow: 0 0 20px #66aaff;
+    }
+
+    .buy-buttons img.icon {
+      width: 24px;
+      height: 24px;
+    }
+
     @media (max-width: 800px) {
-      .container {
-        flex-direction: column;
-        gap: 30px;
+      .portrait {
+        width: 240px;
+        height: 320px;
       }
       h1 {
         font-size: 2.3em;
       }
-      .portrait {
-        width: 240px;
-        height: 320px;
+      .coffee-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
       }
     }
   </style>
@@ -130,34 +146,39 @@
 <body>
   <canvas id="space"></canvas>
 
-  <div class="container">
-    <img src="https://raw.githubusercontent.com/laescritoradeltiempo/laescritoradeltiempo.github.io/de53873de0f655a287e0cdd13d8da830d60e43d1/WhatsApp%20Image%202025-10-11%20at%2008.39.56.jpeg" alt="Yby portrait" class="portrait">
-    <div class="text-content">
-      <h1>The Writer of Time</h1>
-      <h2>by Yby H.</h2>
-      <p>“I write so that darkness, too, may have stars.”</p>
+  <!-- Título arriba -->
+  <h1>The Writer of Time</h1>
 
-      <h3>Buy My Stories</h3>
-      <div class="buttons">
-        <a href="invitamecafecito.html" target="_blank" class="btn">☕ Invite me a coffee</a>
-        <a href="https://www.amazon.com/author/laescritoradeltiempo" target="_blank" class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_icon.svg" alt="Amazon" class="icon"> Amazon
-        </a>
-        <a href="https://www.decitre.fr/ebooks/plumas-negras-9798231377626_9798231377626_10020.html" target="_blank" class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Decitre_logo.svg" alt="Decitre" class="icon"> Decitre
-        </a>
-        <a href="https://www.everand.com/book/921042748/Emperador-e-la-Sinfonia-Cosmica" target="_blank" class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_Everand.svg" alt="Everand" class="icon"> Everand
-        </a>
-        <a href="https://vivlio.casadellibro.com/product/9798232097288_9798232097288_10020/el-arte-de-escribir-con-el-corazon" target="_blank" class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Casa_del_Libro_logo.svg" alt="Casa del Libro" class="icon"> Casa del Libro
-        </a>
-        <a href="https://e-librairie.leclerc/product/9798230636168_9798230636168_10020/emperador-e-la-sinfonia-cosmica" target="_blank" class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_E.Leclerc.svg" alt="E.Leclerc" class="icon"> E.Leclerc
-        </a>
-      </div>
+  <!-- Imagen debajo del título -->
+  <img src="https://raw.githubusercontent.com/laescritoradeltiempo/laescritoradeltiempo.github.io/de53873de0f655a287e0cdd13d8da830d60e43d1/WhatsApp%20Image%202025-10-11%20at%2008.39.56.jpeg" alt="Yby portrait" class="portrait">
+
+  <!-- Frase debajo de la foto -->
+  <p>“I write so that darkness, too, may have stars.”</p>
+
+  <!-- Sección comprar historias -->
+  <div class="buy-section">
+    <h3>Buy My Stories</h3>
+    <div class="buy-buttons">
+      <a href="https://www.amazon.com/author/laescritoradeltiempo" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_icon.svg" alt="Amazon" class="icon"> Amazon
+      </a>
+      <a href="https://www.decitre.fr/ebooks/plumas-negras-9798231377626_9798231377626_10020.html" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Decitre_logo.svg" alt="Decitre" class="icon"> Decitre
+      </a>
+      <a href="https://www.everand.com/book/921042748/Emperador-e-la-Sinfonia-Cosmica" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_Everand.svg" alt="Everand" class="icon"> Everand
+      </a>
+      <a href="https://vivlio.casadellibro.com/product/9798232097288_9798232097288_10020/el-arte-de-escribir-con-el-corazon" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Casa_del_Libro_logo.svg" alt="Casa del Libro" class="icon"> Casa del Libro
+      </a>
+      <a href="https://e-librairie.leclerc/product/9798230636168_9798230636168_10020/emperador-e-la-sinfonia-cosmica" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_E.Leclerc.svg" alt="E.Leclerc" class="icon"> E.Leclerc
+      </a>
     </div>
   </div>
+
+  <!-- Botón cafecito abajo a la derecha -->
+  <a href="invitamecafecito.html" target="_blank" class="coffee-btn">☕ Invite me a coffee</a>
 
   <script>
     const canvas = document.getElementById("space");
@@ -226,4 +247,3 @@
   </script>
 </body>
 </html>
-
