@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invítame un cafecito</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 10px #000;
+      margin-bottom: 50px;
+    }
+
+    .logos {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .logo {
+      width: 120px;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.2);
+    }
+
+    .info p {
+      font-size: 1.2em;
+      margin: 10px 0;
+      text-shadow: 1px 1px 5px #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Invítame un cafecito ☕✨</h1>
+
+  <div class="logos">
+    <!-- Lemon Cash -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Lemon_Cash_logo.png" alt="Lemon Cash" class="logo">
+    
+    <!-- PayPal -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="logo">
+    
+    <!-- Metamask -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="Metamask" class="logo">
+  </div>
+
+  <div class="info">
+    <p><strong>LemonTag:</strong> laescritoradeltiempo</p>
+    <p><strong>PayPal:</strong> letrasycafe.yby@gmail.com</p>
+    <p><strong>Metamask (BSC):</strong> 0xdC6dbA2a252DB42C90728f7812711FDE2a53bB91</p>
+  </div>
+</body>
+</html>
