@@ -112,56 +112,76 @@ p {
   box-shadow: 0 0 20px #66aaff;
 }
 
+/* Bloque del botón Buy me a coffee con alias y Lemon */
+.buy-coffee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.buy-coffee .title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.buy-coffee .lemon {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #80b3ff;
+}
+
+.buy-coffee .alias {
+  font-size: 1em;
+  color: #cce7ff;
+  text-shadow: 0 0 8px #77aaff;
+}
+
+/* Simulación de ventana con cuadros Lemon Tag / Metamask / PayPal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0,0,30,0.95);
+  border: 2px solid #88c0ff;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 10;
+}
+
+.modal .option {
+  background-color: rgba(0,0,50,0.8);
+  border: 1px solid #88c0ff;
+  border-radius: 15px;
+  padding: 12px 25px;
+  margin: 10px 0;
+  color: #cce7ff;
+  text-align: center;
+}
+
+.modal .lemon-alias {
+  font-weight: bold;
+  margin-top: 5px;
+  color: #cce7ff;
+  text-shadow: 0 0 8px #77aaff;
+}
+
+.modal .close-btn {
+  cursor: pointer;
+  margin-top: 10px;
+  color: #80b3ff;
+  text-decoration: underline;
+}
+
 canvas {
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
-}
-
-/* Botón Buy me a coffee con alias sobre Lemon Tag */
-.lemon-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 50, 0.8);
-  border: 1px solid #88c0ff;
-  border-radius: 25px;
-  padding: 15px 25px;
-  color: #cce7ff;
-  font-size: 1.1em;
-  text-decoration: none;
-  text-shadow: 0 0 8px #77aaff;
-  transition: all 0.3s ease;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.lemon-btn:hover {
-  background-color: #3380ff;
-  color: white;
-  box-shadow: 0 0 20px #66aaff;
-}
-
-.lemon-alias {
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #cce7ff;
-  text-shadow: 0 0 10px #77aaff;
-  margin-bottom: 2px;
-}
-
-.lemon-title {
-  font-size: 1em;
-  font-weight: bold;
-  color: #80b3ff;
-  text-shadow: 0 0 12px #6699ff;
-  margin-bottom: 3px;
-}
-
-.lemon-text {
-  font-size: 1.1em;
 }
 
 @media (max-width: 900px) {
@@ -208,20 +228,30 @@ canvas {
       <h2>by Yby H.</h2>
       <p>“I write so that darkness, too, may have stars.”</p>
 
-      <!-- Botón Buy me a coffee con alias sobre Lemon Tag -->
-      <a href="invitamecafecito.html" target="_blank" class="btn lemon-btn">
-        <div class="lemon-alias">alias: la.escritora.tiempo</div>
-        <div class="lemon-title">🍋 Lemon Tag</div>
-        <div class="lemon-text">☕ Buy me a coffee</div>
-      </a>
+      <!-- Botón Buy me a coffee -->
+      <div class="buy-coffee" id="buyCoffeeBtn">
+        <div class="title">☕ Buy me a coffee</div>
+        <div class="lemon">🍋 Lemon</div>
+        <div class="alias">alias: la.escritora.tiempo</div>
+      </div>
 
       <!-- Botón Amazon sigue igual -->
       <div class="buttons">
         <a href="https://www.amazon.com/author/laescritoradeltiempo" target="_blank" class="btn">📖 Buy my stories</a>
       </div>
-
     </div>
   </div>
+</div>
+
+<!-- Modal simulando la ventana con Lemon / Metamask / PayPal -->
+<div class="modal" id="coffeeModal">
+  <div class="option">
+    Lemon Tag
+    <div class="lemon-alias">alias: la.escritora.tiempo</div>
+  </div>
+  <div class="option">Metamask</div>
+  <div class="option">PayPal</div>
+  <div class="close-btn" id="closeModal">Cerrar</div>
 </div>
 
 <script>
@@ -288,6 +318,23 @@ function animate(time) {
 }
 
 animate(0);
+
+// Abrir modal al hacer clic en el botón Buy me a coffee
+const buyBtn = document.getElementById("buyCoffeeBtn");
+const modal = document.getElementById("coffeeModal");
+const closeModalBtn = document.getElementById("closeModal");
+
+buyBtn.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+closeModalBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target == modal) modal.style.display = "none";
+});
 </script>
 
 </body>
