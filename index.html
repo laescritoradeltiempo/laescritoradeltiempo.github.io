@@ -7,10 +7,10 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden;
       font-family: 'Georgia', serif;
       color: #cce7ff;
       background: black;
+      overflow-y: auto; /* Permite scroll vertical */
     }
 
     .container {
@@ -20,29 +20,30 @@
       gap: 60px;
       flex-wrap: wrap;
       text-align: center;
-      padding-top: 50px;
-      z-index: 2;
+      padding: 50px 20px;
       position: relative;
+      z-index: 2;
     }
 
     .cover, .portrait {
       border-radius: 20px;
       box-shadow: 0 0 25px #6699ff;
       object-fit: cover;
+      max-width: 100%;
+      height: auto;
     }
 
     .cover {
-      width: 300px;
-      height: 400px;
+      width: 45%;
+      max-width: 300px;
     }
 
     .portrait {
-      width: 280px;
-      height: 380px;
+      width: 40%;
+      max-width: 280px;
     }
 
     .text-content {
-      max-width: 600px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -108,13 +109,21 @@
       .container {
         flex-direction: column;
         gap: 40px;
+        align-items: center;
       }
+
+      .cover, .portrait {
+        width: 70%;
+        max-width: 240px;
+      }
+
+      .buttons, .download-btn {
+        flex-direction: column;
+        gap: 10px;
+      }
+
       h1 {
         font-size: 2.3em;
-      }
-      .cover, .portrait {
-        width: 240px;
-        height: 320px;
       }
     }
   </style>
@@ -127,7 +136,9 @@
     <div class="text-content">
       <img src="https://laescritoradeltiempo.github.io/portada_emperador.jpeg" alt="Portada cuento" class="cover">
       <div class="download-btn">
-        <a href="https://laescritoradeltiempo.github.io/UnSacrificioDelCorazonPorEmperador.pdf" target="_blank">📄 Descargar primer cuento gratis</a>
+        <a href="https://laescritoradeltiempo.github.io/UnSacrificioDelCorazonPorEmperador.pdf" target="_blank">
+          📄 Descargar primer cuento gratis
+        </a>
       </div>
     </div>
 
