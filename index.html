@@ -1,150 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Writer of Time</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      color: #cce7ff;
-      background: black;
-      overflow-y: auto; /* Permite scroll vertical */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writer of Time</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  color: #cce7ff;
+  background: black;
+  overflow-y: auto;
+}
 
-    .container {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      text-align: center;
-      padding: 50px 20px;
-      position: relative;
-      z-index: 2;
-    }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 2;
+  gap: 40px;
+}
 
-    .cover, .portrait {
-      border-radius: 20px;
-      box-shadow: 0 0 25px #6699ff;
-      object-fit: cover;
-      max-width: 100%;
-      height: auto;
-    }
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    .cover {
-      width: 45%;
-      max-width: 300px;
-    }
+.cover, .portrait {
+  border-radius: 20px;
+  box-shadow: 0 0 35px #6699ff;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
 
-    .portrait {
-      width: 40%;
-      max-width: 280px;
-    }
+.cover:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
 
-    .text-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+.portrait {
+  width: 280px;
+  max-width: 40%;
+  position: relative;
+  top: -50px;
+}
 
-    h1 {
-      font-size: 3em;
-      color: #80b3ff;
-      text-shadow: 0 0 20px #6699ff, 0 0 40px #3366ff;
-      margin: 0;
-    }
+.cover {
+  width: 300px;
+  max-width: 45%;
+}
 
-    h2 {
-      font-size: 1.5em;
-      color: #cce7ff;
-      margin: 5px 0 15px;
-    }
+.text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
 
-    p {
-      font-size: 1.2em;
-      color: #a3d2ff;
-      margin: 15px 0 25px;
-      text-shadow: 0 0 10px #3366ff;
-      line-height: 1.6em;
-    }
+h1 {
+  font-size: 3em;
+  color: #80b3ff;
+  text-shadow: 0 0 20px #6699ff, 0 0 40px #3366ff;
+  margin: 0;
+}
 
-    .buttons, .download-btn {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 10px;
-    }
+h2 {
+  font-size: 1.5em;
+  color: #cce7ff;
+  margin: 5px 0 15px;
+}
 
-    .btn, .download-btn a {
-      display: inline-block;
-      background-color: rgba(0, 0, 50, 0.8);
-      border: 1px solid #88c0ff;
-      color: #cce7ff;
-      padding: 12px 25px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1.1em;
-      text-decoration: none;
-      text-shadow: 0 0 8px #77aaff;
-      transition: all 0.3s ease;
-    }
+p {
+  font-size: 1.2em;
+  color: #a3d2ff;
+  margin: 10px 0 20px;
+  text-shadow: 0 0 10px #3366ff;
+  line-height: 1.6em;
+  text-align: center;
+}
 
-    .btn:hover, .download-btn a:hover {
-      background-color: #3380ff;
-      color: white;
-      box-shadow: 0 0 20px #66aaff;
-    }
+.buttons, .download-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+.btn, .download-btn a {
+  display: inline-block;
+  background-color: rgba(0, 0, 50, 0.8);
+  border: 1px solid #88c0ff;
+  color: #cce7ff;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  text-decoration: none;
+  text-shadow: 0 0 8px #77aaff;
+  transition: all 0.3s ease;
+}
 
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        gap: 40px;
-        align-items: center;
-      }
+.btn:hover, .download-btn a:hover {
+  background-color: #3380ff;
+  color: white;
+  box-shadow: 0 0 20px #66aaff;
+}
 
-      .cover, .portrait {
-        width: 70%;
-        max-width: 240px;
-      }
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 
-      .buttons, .download-btn {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      h1 {
-        font-size: 2.3em;
-      }
-    }
-  </style>
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cover, .portrait {
+    width: 70%;
+    max-width: 240px;
+    position: relative;
+    top: 0;
+  }
+  .buttons, .download-btn {
+    flex-direction: column;
+    gap: 10px;
+  }
+  h1 {
+    font-size: 2.3em;
+  }
+}
+</style>
 </head>
 <body>
-  <canvas id="space"></canvas>
 
-  <div class="container">
-    <!-- Portada del cuento a la izquierda -->
-    <div class="text-content">
-      <img src="https://laescritoradeltiempo.github.io/portada_emperador.jpeg" alt="Portada cuento" class="cover">
-      <div class="download-btn">
-        <a href="https://laescritoradeltiempo.github.io/UnSacrificioDelCorazonPorEmperador.pdf" target="_blank">
-          📄 Descargar primer cuento gratis
-        </a>
-      </div>
+<canvas id="space"></canvas>
+
+<div class="container">
+  <!-- Portada del cuento -->
+  <div class="card">
+    <img src="https://laescritoradeltiempo.github.io/portada_emperador.jpeg" alt="Portada cuento" class="cover">
+    <div class="download-btn">
+      <a href="https://laescritoradeltiempo.github.io/UnSacrificioDelCorazonPorEmperador.pdf" target="_blank">
+        📄 Descargar primer cuento gratis
+      </a>
     </div>
+  </div>
 
-    <!-- Tu imagen a la derecha -->
+  <!-- Tu imagen -->
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/laescritoradeltiempo/laescritoradeltiempo.github.io/de53873de0f655a287e0cdd13d8da830d60e43d1/WhatsApp%20Image%202025-10-11%20at%2008.39.56.jpeg" alt="Yby portrait" class="portrait">
     <div class="text-content">
-      <img src="https://raw.githubusercontent.com/laescritoradeltiempo/laescritoradeltiempo.github.io/de53873de0f655a287e0cdd13d8da830d60e43d1/WhatsApp%20Image%202025-10-11%20at%2008.39.56.jpeg" alt="Yby portrait" class="portrait">
       <h1>The Writer of Time</h1>
       <h2>by Yby H.</h2>
       <p>“I write so that darkness, too, may have stars.”</p>
@@ -154,71 +168,73 @@
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    const canvas = document.getElementById("space");
-    const ctx = canvas.getContext("2d");
-    let w, h;
-    let stars = [];
-    const numStars = 250;
+<script>
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
+let w, h;
+let stars = [];
+const numStars = 250;
 
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
 
-    class Star {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.size = Math.random() * 2;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.color = Math.random() > 0.94 ? "#ffd880" : "#a3d2ff";
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x < 0 || this.x > w) this.vx *= -1;
-        if (this.y < 0 || this.y > h) this.vy *= -1;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
+class Star {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.size = Math.random() * 2;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.color = Math.random() > 0.94 ? "#ffd880" : "#a3d2ff";
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > w) this.vx *= -1;
+    if (this.y < 0 || this.y > h) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
 
-    for (let i = 0; i < numStars; i++) stars.push(new Star());
+for (let i = 0; i < numStars; i++) stars.push(new Star());
 
-    function drawBlackHole(x, y, radius, t) {
-      const gradient = ctx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
-      gradient.addColorStop(0, "rgba(0,0,0,1)");
-      gradient.addColorStop(0.7, "rgba(10,10,30,0.8)");
-      gradient.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(x + Math.sin(t / 2000) * 30, y + Math.cos(t / 3000) * 20, radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
+function drawBlackHole(x, y, radius, t) {
+  const gradient = ctx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
+  gradient.addColorStop(0, "rgba(0,0,0,1)");
+  gradient.addColorStop(0.7, "rgba(10,10,30,0.8)");
+  gradient.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(x + Math.sin(t / 2000) * 30, y + Math.cos(t / 3000) * 20, radius, 0, Math.PI * 2);
+  ctx.fill();
+}
 
-    function animate(time) {
-      ctx.fillStyle = "rgba(0,0,20,0.3)";
-      ctx.fillRect(0, 0, w, h);
+function animate(time) {
+  ctx.fillStyle = "rgba(0,0,20,0.3)";
+  ctx.fillRect(0, 0, w, h);
 
-      for (const star of stars) { star.update(); star.draw(); }
+  for (const star of stars) { star.update(); star.draw(); }
 
-      drawBlackHole(w * 0.25, h * 0.4, 90, time);
-      drawBlackHole(w * 0.75, h * 0.6, 130, time);
+  drawBlackHole(w * 0.25, h * 0.4, 90, time);
+  drawBlackHole(w * 0.75, h * 0.6, 130, time);
 
-      requestAnimationFrame(animate);
-    }
+  requestAnimationFrame(animate);
+}
 
-    animate(0);
-  </script>
+animate(0);
+</script>
+
 </body>
 </html>
